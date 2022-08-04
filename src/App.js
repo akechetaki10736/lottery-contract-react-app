@@ -52,8 +52,10 @@ class App extends Component {
     });
 
     const winner = await lottery.methods.latestWinner().call();
-
-    this.setState({ message: `A winner has been picked ! The winner is: ${ winner }` });
+    const players = await lottery.methods.getPlayers().call();
+    const balance = await web3.eth.getBalance(lottery.options.address);
+    
+    this.setState({ message: `A winner has been picked ! The winner is: ${ winner }`, players, balance });
   }
 
   render() {
